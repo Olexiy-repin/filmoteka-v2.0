@@ -2,7 +2,9 @@
 <li class="gallery-list__item" data-film-id="{{id}}">
     <a href="#" class="link">
         {{#if poster_path}}
-        <img loading="lazy" src="{{poster_path}}" alt="{{title}}" class="gallery-list__img">
+        <picture>
+            <img loading="lazy" src="{{poster_path}}" alt="{{title}}" class="gallery-list__img">
+        </picture>
         {{/if}}
         {{#unless poster_path}}
         <div class="image-placeholder" aria-label="image not found"></div>
