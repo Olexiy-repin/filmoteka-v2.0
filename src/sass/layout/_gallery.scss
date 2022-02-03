@@ -1,5 +1,6 @@
 .gallery-section {
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .gallery-list {
@@ -7,13 +8,26 @@
   font-size: 12px;
   line-height: 1.33;
 
+  &__item {
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 #cecece;
+    transition: transform 250ms linear;
+    border-radius: 5px;
+
+    &:hover,
+    &:focus {
+      transform: scale(1.05);
+    }
+  }
+
   &__content {
-    padding-top: 10px;
+    padding: 10px 10px;
   }
 
   &__title {
     font-size: 12px;
     text-transform: uppercase;
+    color: #000000;
   }
 
   &__img {
@@ -26,6 +40,7 @@
 
   &__bottom-wrapper {
     display: flex;
+    flex-wrap: wrap;
     color: var(--accent-color);
   }
 
@@ -55,6 +70,7 @@
 @media screen and (min-width: 768px) {
   .gallery-section {
     padding-top: 60px;
+    padding-bottom: 60px;
   }
 
   .gallery-list {
@@ -63,7 +79,7 @@
     gap: 30px;
 
     &__item {
-      flex-basis: calc((100% - 30px) / 2);
+      width: calc((100% - 30px) / 2);
     }
   }
 }
@@ -71,7 +87,7 @@
 @media screen and (min-width: 1024px) {
   .gallery-list {
     &__item {
-      flex-basis: calc((100% - 60px) / 3);
+      width: calc((100% - 60px) / 3);
     }
   }
 }

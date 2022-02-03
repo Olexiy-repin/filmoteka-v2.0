@@ -1,0 +1,40 @@
+{{#each this}}
+<li class="gallery-list__item" data-film-id="{{id}}">
+    <a href="#" class="link">
+        {{#if poster_path}}
+        <img loading="lazy" src="{{poster_path}}" alt="{{title}}" class="gallery-list__img">
+        {{/if}}
+        {{#unless poster_path}}
+        <div class="image-placeholder" aria-label="image not found"></div>
+        {{/unless}}
+        <div class="gallery-list__content">
+            <h2 class="gallery-list__title">{{title}}</h2>
+            <div class="gallery-list__bottom-wrapper">
+                <ul class="genres-list list">
+                    {{#if genre_ids}}
+                    {{#each genre_ids}}
+                    {{#if @last}}
+                    <li class="genres-list__item">{{name}}</li>
+                    {{/if}}
+                    {{#unless @last}}
+                    <li class="genres-list__item">{{name}}, </li>
+                    {{/unless}}
+                    {{/each}}
+                    {{/if}}
+                    {{#unless genre_ids}}
+                    {{#each genres}}
+                    {{#if @last}}
+                    <li class="genres-list__item">{{name}}</li>
+                    {{/if}}
+                    {{#unless @last}}
+                    <li class="genres-list__item">{{name}}, </li>
+                    {{/unless}}
+                    {{/each}}
+                    {{/unless}}
+                </ul>
+                <span class="gallery-list__item-year">{{release_date}}</span>
+            </div>
+        </div>
+    </a>
+</li>
+{{/each}}

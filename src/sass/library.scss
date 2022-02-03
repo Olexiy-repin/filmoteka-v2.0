@@ -1,8 +1,12 @@
 @import './utils/modern-normalize';
 @import './utils/variables';
-
 @import './base/common';
 @import './base/container';
 
+@import './components/pagination';
+@import './components/modal';
+
 @import './layout/common-header';
 @import './layout/library/library-header';
+@import './layout/gallery';
+@import './layout/footer';
