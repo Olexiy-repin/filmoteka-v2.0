@@ -1,0 +1,55 @@
+<div class="modal__card">
+    <div class="modal__card-left-side">
+        {{#if poster_path}}
+        <img loading="lazy" src="{{poster_path}}" alt="{{title}}" class="modal__card-img">
+        {{/if}}
+        {{#unless poster_path}}
+        <div class="image-placeholder" aria-label="image not found"></div>
+        {{/unless}}
+    </div>
+    <div class="modal__card-right-side">
+        <h2 class="modal__card-title">{{title}}</h2>
+        <ul class="modal__card-info-list list">
+            <li class="modal__card-info-item">
+                <span
+                    class="modal__card-info-text modal__card-info-text_side_left modal__card-info-text_color_secondary">Vote
+                    /
+                    Votes</span><span class="modal__card-info-text modal__card-info-text_color_main"><span
+                        class="modal__card-info-votes modal__card-info-votes_color_accent">{{vote_average}}</span> /
+                    <span
+                        class="modal__card-info-votes modal__card-info-votes_color_secondary">{{vote_count}}</span></span>
+            </li>
+            <li class="modal__card-info-item">
+                <span
+                    class="modal__card-info-text modal__card-info-text_side_left modal__card-info-text_color_secondary">Popularity</span><span
+                    class="modal__card-info-text modal__card-info-text_color_main">{{popularity}}</span>
+            </li>
+            <li class="modal__card-info-item">
+                <span
+                    class="modal__card-info-text modal__card-info-text_side_left modal__card-info-text_color_secondary">Original
+                    Title</span><span
+                    class="modal__card-info-text modal__card-info-text_color_main">{{original_title}}</span>
+            </li>
+            <li class="modal__card-info-item">
+                <span
+                    class="modal__card-info-text modal__card-info-text_side_left modal__card-info-text_color_secondary">Genre</span>
+                {{#each genres}}
+                {{#if @last}}
+                <span class="modal__card-info-text modal__card-info-text_color_main">{{name}}</span>
+                {{/if}}
+                {{#unless @last}}
+                <span class="modal__card-info-text modal__card-info-text_color_main">{{name}}, </span>
+                {{/unless}}
+                {{/each}}
+            </li>
+        </ul>
+        <h3 class="modal__card-subtitle">About</h3>
+        <p class="modal__card-description">{{overview}}</p>
+        <div class="modal__card-btn-wrapper">
+            <button type="button" class="modal__card-btn modal__card-btn_color_accent modal__card-btn_add_to-watched"
+                data-add-to-watched>add to Wattched</button>
+            <button type="button" class="modal__card-btn modal__card-btn_add_to-queue" data-add-to-queue>add to
+                queue</button>
+        </div>
+    </div>
+</div>

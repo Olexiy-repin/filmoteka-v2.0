@@ -1,0 +1,26 @@
+.tui-pagination {
+  height: auto !important;
+  margin: 0 !important;
+  margin-top: 50px !important;
+}
+
+.tui-pagination .tui-is-selected,
+.tui-pagination strong {
+  background-color: var(--accent-color) !important;
+  border: none !important;
+}
+
+.tui-pagination .tui-page-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 40px !important;
+  height: 40px !important;
+  font-weight: 500 !important;
+  border: none !important;
+}
+
+.tui-prev,
+.tui-next {
+  background-color: #f7f7f7;
+}
