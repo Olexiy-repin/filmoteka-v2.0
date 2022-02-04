@@ -61,8 +61,7 @@
 
 @media screen and (max-width: 767px) {
   .gallery-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     row-gap: 20px;
   }
 }
@@ -74,20 +73,14 @@
   }
 
   .gallery-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
-
-    &__item {
-      width: calc((100% - 30px) / 2);
-    }
   }
 }
 
 @media screen and (min-width: 1024px) {
   .gallery-list {
-    &__item {
-      width: calc((100% - 60px) / 3);
-    }
+    grid-template-columns: repeat(3, 1fr);
   }
 }

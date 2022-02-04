@@ -1,0 +1,18 @@
+.warning-message {
+  font-size: 14px;
+  line-height: 1.14;
+  color: #ff001b;
+  transition: opacity 250ms linear, visibility 250ms linear;
+
+  &.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .warning-message {
+    text-align: center;
+  }
+}

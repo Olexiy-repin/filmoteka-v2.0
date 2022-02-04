@@ -7,5 +7,5 @@ export const refs = {
   //Pagination Elements
   paginationContainer: document.querySelector('.js-tui-pagination'),
   //Filter Buttons
-  filterBtnsContainer: document.querySelector('.js-utils-list'),
+  filterBtnsContainer: document.querySelector('.js-filter-list'),
 };

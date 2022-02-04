@@ -20,14 +20,14 @@ function onFilterBtnClick(event) {
     return;
   }
 
-  if (event.target.classList.contains('utils-list__btn_active')) {
+  if (event.target.classList.contains('filter-list__btn_active')) {
     return;
   }
 
   const key = event.target.dataset.filter;
 
-  prevBtn.classList.remove('utils-list__btn_active');
-  event.target.classList.add('utils-list__btn_active');
+  prevBtn.classList.remove('filter-list__btn_active');
+  event.target.classList.add('filter-list__btn_active');
   renderFilms(key);
   prevBtn = event.target;
   refs.filmGallery.dataset.gallery = key;

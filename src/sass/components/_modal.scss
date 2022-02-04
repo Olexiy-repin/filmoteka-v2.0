@@ -5,7 +5,7 @@
   bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.25);
-  transition: opacity 250ms linear, visibility 250ms linear;
+  transition: opacity 250ms linear 0ms, visibility 250ms linear 0ms;
 
   &__container {
     position: relative;
@@ -19,6 +19,7 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+    transition: opacity 500ms linear 500ms, visibility 500ms linear 500ms;
   }
 }
 
@@ -28,6 +29,13 @@
   height: 96vh;
   overflow: auto;
   background-color: rgb(255, 255, 255);
+  transform: scale(1) rotate(360deg);
+  transition: transform 500ms linear 500ms;
+
+  .backdrop.is-hidden & {
+    transform: scale(0);
+    transition: transform 500ms linear 0ms;
+  }
 
   &__card-container {
     padding: 46px 20px;
