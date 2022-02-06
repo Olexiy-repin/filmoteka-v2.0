@@ -8,7 +8,7 @@ export class ModalService {
 
     this.backdrop.querySelector('.close-btn').addEventListener('click', this.close.bind(this));
     this.backdrop.addEventListener('click', event => {
-      if (event.target.classList.contains('backdrop')) {
+      if (event.target === event.currentTarget) {
         this.close();
       }
     });
