@@ -1,6 +1,7 @@
 'use strict';
 
 import axios from 'axios';
+import preloaderTemplate from '../../templates/preloader';
 
 export default class TmdbApi {
   #API_KEY = '08c8955d1f3be6891cd82ae214d79041';
@@ -10,10 +11,31 @@ export default class TmdbApi {
   constructor() {
     this.page = 1;
     this.query = '';
-    this.#fetchAllGenres();
+  }
+
+  async firstFetchForThePopularFilms() {
+    document.querySelector('.js-gallery-list').innerHTML = preloaderTemplate();
+
+    const genresResponse = await this.#fetchAllGenres();
+    localStorage.setItem('genres', JSON.stringify(genresResponse.data.genres));
+
+    const popularFilms = await axios.get(`${this.#BASE_URL}/trending/movie/day`, {
+      params: {
+        api_key: this.#API_KEY,
+        page: this.page,
+      },
+    });
+
+    popularFilms.data.results.forEach(film => {
+      this.#addGenresPosterAndDateToResult(film);
+    });
+
+    return popularFilms;
   }
 
   async fetchPopularFilms() {
+    document.querySelector('.js-gallery-list').innerHTML = preloaderTemplate();
+
     const popularFilms = await axios.get(`${this.#BASE_URL}/trending/movie/day`, {
       params: {
         api_key: this.#API_KEY,
@@ -29,6 +51,8 @@ export default class TmdbApi {
   }
 
   async searchFilmsByName() {
+    document.querySelector('.js-gallery-list').innerHTML = preloaderTemplate();
+
     const searchedFilms = await axios.get(`${this.#BASE_URL}/search/movie`, {
       params: {
         api_key: this.#API_KEY,
@@ -56,14 +80,12 @@ export default class TmdbApi {
     return filmInfo;
   }
 
-  async #fetchAllGenres() {
-    const response = await axios.get(`${this.#BASE_URL}/genre/movie/list`, {
+  #fetchAllGenres() {
+    return axios.get(`${this.#BASE_URL}/genre/movie/list`, {
       params: {
         api_key: this.#API_KEY,
       },
     });
-
-    localStorage.setItem('genres', JSON.stringify(response.data.genres));
   }
 
   #addGenresPosterAndDateToResult(film) {

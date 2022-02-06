@@ -1,0 +1,141 @@
+@keyframes spScaleAlpha {
+  0% {
+    opacity: 1;
+  }
+
+  33% {
+    opacity: 0.25;
+  }
+
+  66% {
+    opacity: 0.25;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes spScaleAlphaBefore {
+  0% {
+    opacity: 0.25;
+  }
+
+  33% {
+    opacity: 1;
+  }
+
+  66% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes spScaleAlphaAfter {
+  33% {
+    opacity: 0.25;
+  }
+
+  66% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.25;
+  }
+}
+
+.preloader-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spinner {
+  display: flex;
+  column-gap: 20px;
+  margin-bottom: 10px;
+}
+
+.spinner__ball {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  transform-origin: center center;
+  background-color: rgb(255, 107, 8);
+
+  &_second {
+    background-color: rgba(255, 107, 8, 1);
+    opacity: 1;
+    animation-name: spScaleAlpha;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  &_first,
+  &_third {
+    opacity: 0.25;
+  }
+
+  &_first {
+    animation-name: spScaleAlphaBefore;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  &_third {
+    animation-name: spScaleAlphaAfter;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+}
+
+// .sp-3balls,
+// .sp-3balls:before,
+// .sp-3balls:after {
+//   display: inline-block;
+//   width: 18px;
+//   height: 18px;
+//   border-radius: 50%;
+//   transform-origin: center center;
+//   background-color: rgb(255, 107, 8);
+// }
+
+// .sp-3balls {
+//   margin-left: 30px;
+//   position: relative;
+//   background-color: rgba(255, 107, 8, 1);
+//   opacity: 1;
+//   animation-name: spScaleAlpha;
+//   animation-duration: 1000ms;
+//   animation-iteration-count: infinite;
+//   animation-timing-function: linear;
+// }
+
+// .sp-3balls:before,
+// .sp-3balls:after {
+//   content: '';
+//   position: relative;
+//   opacity: 0.25;
+// }
+
+// .sp-3balls:before {
+//   left: 30px;
+//   top: 0px;
+//   animation-name: spScaleAlphaBefore;
+//   animation-duration: 1000ms;
+//   animation-iteration-count: infinite;
+//   animation-timing-function: linear;
+// }
+
+// .sp-3balls:after {
+//   left: -30px;
+//   top: -23px;
+//   animation-name: spScaleAlphaAfter;
+//   animation-duration: 1000ms;
+//   animation-iteration-count: infinite;
+//   animation-timing-function: linear;
+// }

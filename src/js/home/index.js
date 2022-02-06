@@ -14,16 +14,19 @@ const tmdbApi = new TmdbApi();
 const localStorageService = new LocalStorageService();
 const modalService = new FilmModalService(refs.backdrop);
 
-tmdbApi.fetchPopularFilms().then(({ data }) => {
-  createPagination({
-    totalItems: data.total_results,
-    page: data.page,
-    totalPage: data.total_pages,
-    method: 'fetchPopularFilms',
-  });
+tmdbApi
+  .firstFetchForThePopularFilms()
+  .then(({ data }) => {
+    createPagination({
+      totalItems: data.total_results,
+      page: data.page,
+      totalPage: data.total_pages,
+      method: 'fetchPopularFilms',
+    });
 
-  refs.filmGallery.innerHTML = galleryCardTemplate(data.results);
-});
+    refs.filmGallery.innerHTML = galleryCardTemplate(data.results);
+  })
+  .catch(console.log);
 
 refs.searchForm.addEventListener('submit', onSearchFormSubmit);
 
@@ -35,26 +38,30 @@ function onSearchFormSubmit(event) {
   const query = event.currentTarget.elements['user_query'].value.trim();
   event.currentTarget.reset();
   refs.warningText.classList.add('is-hidden');
+  refs.paginationContainer.innerHTML = '';
   tmdbApi.query = query;
   tmdbApi.page = 1;
 
-  tmdbApi.searchFilmsByName().then(({ data }) => {
-    createPagination({
-      totalItems: data.total_results,
-      page: data.page,
-      totalPage: data.total_pages,
-      method: 'searchFilmsByName',
-    });
+  tmdbApi
+    .searchFilmsByName()
+    .then(({ data }) => {
+      createPagination({
+        totalItems: data.total_results,
+        page: data.page,
+        totalPage: data.total_pages,
+        method: 'searchFilmsByName',
+      });
 
-    if (!data.results.length) {
-      refs.warningText.classList.remove('is-hidden');
-      refs.filmGallery.innerHTML = '';
-      refs.paginationContainer.innerHTML = '';
-      return;
-    }
+      if (!data.results.length) {
+        refs.warningText.classList.remove('is-hidden');
+        refs.filmGallery.innerHTML = '';
+        refs.paginationContainer.innerHTML = '';
+        return;
+      }
 
-    refs.filmGallery.innerHTML = galleryCardTemplate(data.results);
-  });
+      refs.filmGallery.innerHTML = galleryCardTemplate(data.results);
+    })
+    .catch(console.log);
 }
 
 function onGalleryCardClick(event) {
@@ -67,19 +74,24 @@ function onGalleryCardClick(event) {
 
   modalService.open();
 
-  tmdbApi.fetchFullInfoAboutFilm(filmCard.dataset.filmId).then(({ data }) => {
-    refs.modalCardContainer.innerHTML = modalCardTemplate(data);
+  tmdbApi
+    .fetchFullInfoAboutFilm(filmCard.dataset.filmId)
+    .then(({ data }) => {
+      refs.modalCardContainer.innerHTML = modalCardTemplate(data);
 
-    refs.backdrop.querySelector('button[data-add-to-watched]').addEventListener('click', event => {
-      addFilmToLocalStorage('watched', data);
-      modalService.close();
-    });
+      refs.backdrop
+        .querySelector('button[data-add-to-watched]')
+        .addEventListener('click', event => {
+          addFilmToLocalStorage('watched', data);
+          modalService.close();
+        });
 
-    refs.backdrop.querySelector('button[data-add-to-queue]').addEventListener('click', event => {
-      addFilmToLocalStorage('queue', data);
-      modalService.close();
-    });
-  });
+      refs.backdrop.querySelector('button[data-add-to-queue]').addEventListener('click', event => {
+        addFilmToLocalStorage('queue', data);
+        modalService.close();
+      });
+    })
+    .catch(console.log);
 }
 
 function createPagination({ totalItems, page, totalPage, method } = {}) {
@@ -114,14 +126,16 @@ function createPagination({ totalItems, page, totalPage, method } = {}) {
   pagination.on('afterMove', event => {
     tmdbApi.page = event.page;
 
-    tmdbApi[`${method}`]().then(({ data }) => {
-      refs.filmGallery.innerHTML = galleryCardTemplate(data.results);
+    tmdbApi[`${method}`]()
+      .then(({ data }) => {
+        refs.filmGallery.innerHTML = galleryCardTemplate(data.results);
 
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    });
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      })
+      .catch(console.log);
   });
 }
 

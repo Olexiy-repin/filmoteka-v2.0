@@ -36,13 +36,21 @@ function onFilterBtnClick(event) {
 function renderFilms(key) {
   refs.filmGallery.innerHTML = '';
 
-  const filmsArr = localStorageService.load(key);
+  new Promise((resolve, reject) => {
+    const filmsArr = localStorageService.load(key);
 
-  if (!filmsArr) {
-    return;
-  }
-
-  refs.filmGallery.innerHTML = galleryCardTemplate(filmsArr);
+    if (!filmsArr) {
+      reject();
+    } else {
+      resolve(filmsArr);
+    }
+  })
+    .then(data => {
+      refs.filmGallery.innerHTML = galleryCardTemplate(data);
+    })
+    .catch(err => {
+      console.log('Нет добавленных фильмов');
+    });
 }
 
 function onGalleryCardClick(event) {
